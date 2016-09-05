@@ -18,3 +18,14 @@ caffe 最优化求解过程
 
 	 如果训练发散（损失函数值变得非常大，甚至出现NaN或Inf），试着减小base_lr（学习速率），然后重新训练，直到不再发散
 
+	 求解器方法重点是最小化损失函数的全局优化问题
+
+	 学习速率衰减策略：
+	 	fixed： 固定学习速率，始终等于base_lr
+	 	step： 步进衰减，等于base_lr*gamma^(floor(iter/step))
+	 	exp： 指数衰减，等于base_lr*gamma^iter
+	 	inv: 倒数衰减，等于base_lr*(1+gamma*iter)^(-power)
+	 	multistep: 多步衰减，与步进衰减类似，允许非均匀步进值(stepvalue)
+	 	poly： 多项式衰减，在max_iter时达到0。计算公式为base_lr（1-iter/max_iter）^(power)
+	 	sigmoid: sigmoid衰减，等于base_lr（1/（1+exp（-gamma*（iter-stepsize））））
+
