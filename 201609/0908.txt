@@ -1,0 +1,21 @@
+今天是个不幸的一天！！！！
+
+上午为了在百度云服务器ubuntu14.04上安装git，与github进行连接
+首先安装git  apt-get install git
+然后生成rsa秘钥 ssh-keygen -t rsa -C "you_email@youremail.com"
+添加ssh key （也就是id_rsa.pub中的内容）到github 
+安装github   apt-get install git-core git-gui git-doc
+配置git     git config --global user.email ""
+            git config --global user.name ""
+进行git与github操作
+-------------------------华丽的分割线-------------------------------------------
+
+痛苦的下午开始了，为了在caffe框架上实现python wrapper 我真是煞费苦心
+没有教程，只能自己研究，研究来研究去还是没有研究透彻
+只能按照前辈来做，install了一堆有用无用的依赖包
+最终caffe删了，重头再来，就当熟练技能了
+最后好像找到问题所在，caffe接口针对的python是2.7版本而我的是3.5版
+只好卸载python，下载新的python2.7
+
+突然之间，电脑内存不够用了，wtf，我是4g内存我也没开什么程序，只是一个chrome程序就让我的内存使用率达到了90+
+我砸电脑的冲动都有了
