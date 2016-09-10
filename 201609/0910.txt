@@ -1,0 +1,25 @@
+ubuntu 15.04 上安装docker
+
+什么是docker？
+  docker是一个开源的应用容器引擎，开发者可以把一个Linux应用和他所依赖的一切（比如配置文件和库）都封装到一个容器中，然后达不到任Linux中.
+docker有三个概念 镜像，容器，镜像仓库
+镜像：一个包含了应用程序和其运行环境的只读文件，构建容器的模板。
+容器: 基于某个镜像生成并动态运行的相互隔离的实例。
+镜像仓库：docker官方用于集中存储，管理镜像的服务。
+
+与git与github的关系类似：
+一个是管理镜像与容器，一个是管理文件与项目
+
+
+安装docker首先有64位Linux系统并且内核得2.0以上
+sudo apt-get update
+sudo apt-get -y install docker.io
+
+或者
+
+sudo apt-get update curl -s https://get.docker.io/ubuntu/ | sudo sh 
+可能报错需要安装 appearmor
+sudo apt-get install apparmor
+
+Done
+
