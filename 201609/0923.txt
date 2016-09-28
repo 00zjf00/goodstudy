@@ -1,0 +1,30 @@
+1、
+replace和replaceAll是JAVA中常用的替换字符的方法,它们的区别是:
+1)replace的参数是char和CharSequence,即可以支持字符的替换,也支持字符串的替换(CharSequence即字符串序列的意思,说白了也就是字符串);
+2)replaceAll的参数是regex,即基于规则表达式的替换,比如,可以通过replaceAll("\\d", "*")把一个字符串所有的数字字符都换成星号;
+
+2、
+Throwable的子类： 
+1.Exception（异常） :是程序本身可以处理的异常。 
+2.Error（错误）: 是程序无法处理的错误。这些错误表示故障发生于虚拟机自身、或者发生在虚拟机试图执行应用时，一般不需要程序处理。
+3.检查异常（编译器要求必须处置的异常） ：  除了Error，RuntimeException及其子类以外，其他的Exception类及其子类都属于可查异常。这种异常的特点是Java编译器会检查它，也就是说，当程序中可能出现这类异常，要么用try-catch语句捕获它，要么用throws子句声明抛出它，否则编译不会通过。
+4.非检查异常(编译器不要求处置的异常): 包括运行时异常（RuntimeException与其子类）和错误（Error）。
+
+3、
+A：HashMap和Hashtable两个类都实现了Map接口，二者保存K-V对（key-value对）
+B：HashTable不允许null值(key和value都不可以),HashMap允许null值(key和value都可以)。
+C：Hashtable的方法是Synchronize的，而HashMap不是，在多个线程访问Hashtable时，不需要自己为它的方法实现同步，而HashMap 就必须为之提供外同步。
+D：由所有HashMap类的“collection 视图方法”所返回的迭代器都是快速失败的：在迭代器创建之后，如果从结构上对映射进行修改，除非通过迭代器本身的 remove 方法，其他任何时间任何方式的修改，迭代器都将抛出ConcurrentModificationException。Hashtable和HashMap的区别主要是前者是同步的，后者是快速失败机制保证
+
+4、
+当实例化子类对象时，首先要加载父类的class文件进内存，静态代码块是随着类的创建而执行，所以父类静态代码块最先被执行，子类class文件再被加载，同理静态代码块被先执行；实例化子类对象要先调用父类的构造方法，而调用父类构造方法前会先执行父类的非静态代码块
+
+5、
+优化Hibernate所鼓励的7大措施：
+1.尽量使用many-to-one，避免使用单项one-to-many
+2.灵活使用单向one-to-many
+3.不用一对一，使用多对一代替一对一
+4.配置对象缓存，不使用集合缓存
+5.一对多使用Bag 多对一使用Set
+6.继承使用显示多态 HQL:from object polymorphism="exlicit" 避免查处所有对象
+7.消除大表，使用二级缓存
