@@ -1,0 +1,148 @@
+servlet
+servlet是运行在servlet容器中的java类
+Tomcat 免费开源servlet 容器
+
+配合Tomcat
+JAVA_HOME
+
+可以再任意目录使用startup启动tomcat或者使用catalina 命令启动tomcat
+catalina run 在catalina同一个命令行窗口下启动服务器
+catalina start 另开一个窗口启动服务器
+catalina stop 结束服务器
+
+Path指向bin
+CATALINA_HOME
+
+
+servlet平台无关
+servlet容器负责servlet和客户的通信以及调用servlet方法
+
+servlet的生命周期
+serbvlet容器也就是tomcat管理servlet的生命周期
+构造器：只被调用一次。只有第一次请求servlet时创建servlet的实例，调用构造器，说明serlvet是单实例的！
+init：只被调用一次，在创建好实例后立即被调用，用来初始化servlet实例
+service：被多次调用，每次请求都会调用service方法
+destory：只被调用一次，在当前的servlet所在的web应用被卸载前调用，用于释放当前的servlet所占用的资源。
+
+servlet容器：
+1）可以来创建servelt，并调用servlet的相关生命周期方法
+2）jsp，Filter，Listener，Tag...
+
+
+url-mapping时使用通配符只能有两种固定的格式：
+一种格式是“*.扩展名”，另一种格式是以正斜杠（/）开头并以“*”结尾
+
+ServletConfig: 封装了 Serlvet 的配置信息, 并且可以获取 ServletContext 对象
+1). 配置 Serlvet 的初始化参数
+
+	<servlet>
+		<servlet-name>helloServlet</servlet-name>
+		<servlet-class>com.atguigu.javaweb.HelloServlet</servlet-class>
+		
+		<!-- 配置 Serlvet 的初始化参数。 且节点必须在 load-on-startup 节点的前面 -->
+		<init-param>
+			<!-- 参数名 -->
+			<param-name>user</param-name>
+			<!-- 参数值 -->
+			<param-value>root</param-value>
+		</init-param>
+		
+		<init-param>
+			<param-name>password</param-name>
+			<param-value>1230</param-value>
+		</init-param>
+		
+		<load-on-startup>-1</load-on-startup>
+		
+	</servlet>
+
+2). 获取初始化参数: 
+
+	> getInitParameter(String name): 获取指定参数名的初始化参数
+    > getInitParameterNames(): 获取参数名组成的 Enumeration 对象. 
+       
+
+3). 获取 Serlvet 的配置名称(了解)
+
+8. ServletContext
+
+1). 可以由  SerlvetConfig 获取:
+
+ServletContext servletContext = servletConfig.getServletContext();
+
+
+2). 该对象代表当前 WEB 应用: 可以认为 SerlvetContext 是当前 WEB 应用的一个大管家. 可以从中获取到当前 WEB 应用的各个方面的信息.
+
+①. 获取当前 WEB 应用的初始化参数
+
+设置初始化参数: 可以为所有的 Servlet 所获取, 而 Servlet 的初始化参数只用那个 Serlvet 可以获取. 
+
+<!-- 配置当前 WEB 应用的初始化参数 -->
+<context-param>
+	<param-name>driver</param-name>
+	<param-value>com.mysql.jdbc.Driver</param-value>
+</context-param>
+
+方法:
+
+getInitParameter
+getInitParameterNames	
+
+代码:
+
+ServletContext servletContext = servletConfig.getServletContext();
+		
+String driver = servletContext.getInitParameter("driver");
+System.out.println("driver:" + driver);
+
+Enumeration<String> names2 = servletContext.getInitParameterNames();
+while(names2.hasMoreElements()){
+	String name = names2.nextElement();
+	System.out.println("-->" + name); 
+}
+
+②. 获取当前 WEB 应用的某一个文件在服务器上的绝对路径, 而不是部署前的路径
+
+getRealPath(String path);
+
+代码:
+
+String realPath = servletContext.getRealPath("/note.txt");
+System.out.println(realPath);
+
+③. 获取当前 WEB 应用的名称: 
+
+getContextPath()
+
+代码:
+
+String contextPath = servletContext.getContextPath();
+System.out.println(contextPath); 
+
+④. 获取当前 WEB 应用的某一个文件对应的输入流. 
+
+getResourceAsStream(String path): path 的 / 为当前 WEB 应用的根目录. 
+
+代码:
+
+InputStream is2 = servletContext.getResourceAsStream("/WEB-INF/classes/jdbc.properties");
+	
+⑤. 和 attribute 相关的几个方法: 
+
+
+GET 请求和 POST 请求:
+
+1). 使用GET方式传递参数:
+
+①. 在浏览器地址栏中输入某个URL地址或单击网页上的一个超链接时，浏览器发出的HTTP请求消息的请求方式为GET。 
+②. 如果网页中的<form>表单元素的 method 属性被设置为了“GET”，浏览器提交这个FORM表单时生成的HTTP请求消息的请求方式也为GET。 
+③. 使用GET请求方式给WEB服务器传递参数的格式：  
+
+http://www.atguigu.com/counter.jsp?name=lc&password=123
+
+④. 使用GET方式传送的数据量一般限制在 1KB 以下。 
+
+2). 使用 POST 方式传递参数:
+
+①. POST 请求方式主要用于向 WEB 服务器端程序提交 FORM 表单中的数据: form 表单的 method 置为 POST
+②. POST 方式将各个表单字段元素及其数据作为 HTTP 消息的实体内容发送给 WEB 服务器，传送的数据量要比使用GET方式传送的数据量大得多。	
