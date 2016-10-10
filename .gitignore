@@ -3,6 +3,9 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 *.docx
+*.mp4
+*.m3u8
+*.ts
 
 # Python:
 *.py[cod]
