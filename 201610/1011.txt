@@ -1,0 +1,26 @@
+servletconfig 
+的getParameter（）方法获得servlet的初始参数
+getServletContext（） 获得servletContext对象
+
+servletContext对象
+getParameter（）方法获取的是WEB应用的初始参数，可以被多个servlet调用
+
+servletConfig对象在service方法中不能直接使用，需要从init方法中获得
+
+=============================================================================
+
+HttpServlet：
+是一个servlet，继承自GenericServlet。针对于HTTP协议所定制。
+在service（）方法中直接把ServletRequest和ServletResponse转为HttpServletRequest和HttpServletResponse
+并调用了重载的service（HttpServletRequest，HttpServletResponse）
+在service中根据请求方式创建了doGet和doPost方法
+
+实际开发中直接继承HttpServlet并根据请求方式复doXxx（）方法
+
+好处：直接使用HttpServletRequest和HttpServletResponse，不需要强转
+
+
+
+异常信息：java.sql.SQLException: Before start of result set：
+	是个 SQL 异常 引起异常的原因是因为 rs.getString("name"); 前要加rs.next();
+    这是因为rs.next()是指游标每次像下移动一行 在关闭 ResultSet 之前都是继续有效的 当第一次rs.next()的时候 游标位置在表的最上方 也就是说处于一个空的位置 但是如果没有rs.next() 游标的位置为空 所以rs.getString("name") 不知道是哪个位置
