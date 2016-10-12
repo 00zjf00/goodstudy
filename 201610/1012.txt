@@ -1,0 +1,67 @@
+jsp:是简化servlet的一种技术，他将java代码和html一句混合在同一个文件中编写
+制度网页的要动态产生的内容采用java代码来编写，静态html照常编写
+
+Jsp可以放在在web应用程序中的除了web-inf及其子目录外的任何目录下
+
+jsp --> jsp引擎 --> servlet -->web容器
+
+jsp的内部隐含对象：没有声明就可以使用的变量
+request，reponse，pageContext，session，application，config，out，page和exception
+
+request：HttpServletRequest对象
+reponse：HttpServletResponse对象
+pageContext：页面的上下文，是PageContext的一个对象，可以从中获取其他8个隐含对象，也可以从中回去当前页面的其他信息。
+session：代表浏览器和服务器的一次对话，是HttpSession的对象。
+application：代表当前web应用。是ServletContext对象。可以获得web应用的初始化参数。
+config：当前jsp对应的servlet的ServletConfig对象。
+out：JspWriter对象。调用out.println（）方法直接将字符串打印到浏览器中。
+page：指向当前的jsp对应的servlet对象的引用，但为object对象。
+exception：再声明了page指令的isErrorPage属性为true时才可以使用。
+
+****pageContext  request  session  application 对属性的作用域的范围从小到大****
+
+
+和属性相关的方法：
+Object getAttribute（String name）：获取制定的属性
+Enumeration getAttributeNames（）：获取多有的属性的名字组成的Enumeration对象
+removeAttribute（String name）
+void setAttribute（String name，Object o）
+
+pageContext：属性的作用范围仅限于当前jsp页面
+request：属性的作用范围仅限于当前请求
+session：属性的作用范围限于一次会话：浏览器打开直到关闭称为一次会话（再次期间会话不失效）
+application：属性的作用范围限于当前web应用。
+
+
+
+=============================================转发和重定向==============================================
+请求的转发：
+调用HttpServletRequest的getRequestDispatcher（path）方法获取RequestDispatcher对象
+调用forward（）方法进行转发
+
+请求的重定向：
+response.sendRedirect(path)方法
+
+请求的转发和重定向：
+本质区别：请求的转发只发出了一次请求，而重定向则发出了两次请求。
+具体：
+1.转发后地址栏是初次发出请求的地址，而请求的重定向地址栏不再是初次发出请求的地址，地址栏为最后响应的地址
+2.请求转发：在最终的Servlet中，request对象和中转的那个request是同一个对象
+  请求的重定向：不是同一个对象。
+
+  ps：forward方法传出本身的request和response对象，而sendRedirect方法没有
+
+请求转发：只能转发给当前web应用的资源
+请求的重定向：可以重定向到任何资源
+
+请求的转发：/代表web应用的根目录（项目名）
+请求的重定向：/代表web站点的根目录（8080）
+
+对于Tomcat服务器而言，WEB-INF下的文件时不能通过在浏览器中直接输入来访问。但通过请求的转发是可以的。
+
+
+==========================================================================================================
+获取中文参数值解决乱码：默认参数在传输过程中使用的编码为ISO-8859-1
+
+对于POST请求：只要在获取请求信息之前，调用request.setCharacterEncoding("UTF-8")即可。
+对于GET请求：可以通过修改Tomcat的server.xml文件的方式，修改connection节点添加useBodyEncodingForURI='true'即可
