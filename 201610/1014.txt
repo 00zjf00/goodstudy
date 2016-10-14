@@ -1,0 +1,63 @@
+Scala
+
+Scala中的String和StringBuilder和java中的一样
+区别：+=可以添加字符  ++=可以添加字符串 等同于append（）
+
+import 包的时候  _代替*
+
+创建区间数组：range方法 ； 创建多维数组时用ofDim方法返回数组
+
+
+Scala List：列表的元素类型 T 可以写成 List[T]
+// 空列表
+val empty: List[Nothing] = List()
+
+构造列表的两个基本单位是 Nil 和 ::
+Nil 也可以表示为一个空列表。
+
+Scala列表有三个基本操作：
+head 返回列表第一个元素
+tail 返回一个列表，包含除了第一元素之外的其他元素
+isEmpty 在列表为空时返回true
+
+
+Scala Set:
+Scala Set(集合)是没有重复的对象集合，所有的元素都是唯一的。
+Scala 集合分为可变的和不可变的集合。
+默认情况下，Scala 使用的是不可变集合，如果你想使用可变集合，需要引用 scala.collection.mutable.Set 包。
+（默认引用 scala.collection.immutable.Set，是不可变的）
+
+add()方法是在set尾加，+=是在set头加
+remove（）和-=一致
+
+注意： 虽然可变Set和不可变Set都有添加或删除元素的操作，但是有一个非常大的差别。对不可变Set进行操作，会产生一个新的set，原来的set并没有改变，这与List一样。 而对可变Set进行操作，改变的是该Set本身，与ListBuffer类似。
+
+Scala集合有三个基本操作：
+head 返回集合第一个元素
+tail 返回一个集合，包含除了第一元素之外的其他元素
+isEmpty 在集合为空时返回true
+
+两个Set连接没有方法，直接使用++运算符或者set.++()方法进行连接，如果有重复元素会被覆盖
+使用 Set.min 方法来查找集合中的最小元素，使用 Set.max 方法查找集合中的最大元素
+
+
+
+Scala Map
+Map(映射)是一种可迭代的键值对（key/value）结构。所有的值都可以通过键来获取。
+Map 中的键都是唯一的。
+Map 也叫哈希表（Hash tables）。
+Map 有两种类型，可变与不可变，区别在于可变对象可以修改它，而不可变对象不可以。
+默认情况下 Scala 使用不可变 Map。如果你需要使用可变集合，你需要显式的引入 import scala.collection.mutable.Map 类
+在 Scala 中 你可以同时使用可变与不可变 Map，不可变的直接使用 Map，可变的使用 mutable.Map。
+
+Scala Map 有三个基本操作：
+方法	描述
+keys	返回 Map 所有的键(key)
+values	返回 Map 所有的值(value)
+isEmpty	在 Map 为空时返回true
+
+通过 foreach 循环输出 Map 中的 keys 和 values
+
+
+
+Scala 元组：元组也是不可变的，但与列表不同的是元组可以包含不同类型的元素。
